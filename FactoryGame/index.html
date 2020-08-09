@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <link rel="stylesheet" href="css/uikit.css">
+        <link rel="stylesheet" href="styles.css">
+        <script src="js/uikit.js"></script>
+        <script src="p5/p5.js"></script>
+
+        <script src="materials.js"></script>
+        <script src="classes.js"></script>
+        <script src="components.js"></script>
+        <script src="crafting.js"></script>
+    </head>
+    <body>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="main.js"></script>
+        
+        <div>
+            <div id="game" class="uk-container uk-flex uk-margin-small"></div>
+
+            <button class="uk-button uk-button-secondary uk-margin-small-right uk-position-right uk-height-1-5 uk-margin-remove" type="button" uk-toggle="target: #offcanvas">Open</button>
+            <div id="offcanvas" uk-offcanvas="flip: true; bg-close: false;">
+                
+                <div id="dropables" class="uk-card uk-card-secondary uk-offcanvas-bar">
+                    <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+                    <ul uk-tab>
+                        <li class="uk-active"><a href="#">Components</a></li>
+                        <li><a href="#">Materials</a></li>
+                        <li><a href="#">Debug</a></li>
+                    </ul>
+    
+                    <ul class="uk-switcher">
+                        <li>
+                            <div id="components">
+                                <button onclick="addExtractor();" class="uk-button uk-button-primary">Extracter</button>
+                                <button onclick="addFactory();" class="uk-button uk-button-primary">Factory</button>
+                                <button onclick="addCollector();" class="uk-button uk-button-primary">Collecter</button>
+                            </div>
+                        </li>
+                        <li>
+                            <div id="materials">
+                            </div>
+                        </li>
+                        <li>
+                            <div id="debug">
+                                <button onclick="wipeBoard();" class="uk-button uk-button-primary">Clear Board</button>
+                                <button onclick="addMat();" class="uk-button uk-button-primary">Add Test Material</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            
+
+            <div id="stats" class="uk-width-1-2 uk-position-bottom">
+                <p>this is funny</p>
+            </div>
+        </div>
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,14 @@
+<div id="dropables">
+                <ul class="uk-tab-bottom" uk-tab>
+                    <li class="uk-active"><a href="#">Components</a></li>
+                    <li><a href="#">Materials</a></li>
+                </ul>
+
+                <div id="components">
+                    <button id="extracter" onclick="addExtractor();">Extracter</button>
+                    <button id="extracter" onclick="addFactory();">Factory</button>
+                </div>
+                <div id="materials">
+                    <button id="extracter" onclick="addMaterial(1);">Wood</button>
+                </div>
+            </div>
