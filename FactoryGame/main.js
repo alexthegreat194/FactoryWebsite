@@ -1,12 +1,18 @@
 console.log("Start...")
 
+//objects held by the mouse
 var tracking;
 var startPort;
+
+///objects on the board
+//components
 var extractors = [];
 var factories = [];
 var collectors = [];
+var components = [extractors, factories, collectors];
+//other
 var connectors = [];
-
+//recipy variables
 var unlockedIds = [1, 2, 3, 4, 5, 6, 7];
 
 function setup()
@@ -110,47 +116,6 @@ function mouseReleased()
                         console.log("Not in range...");
                 }
 
-                for(var i = 0; i < factories.length; i++){
-                    console.log("Checking Factories...");
-                    if (factories[i].over(mouseX, mouseY) == true)
-                    {
-                        console.log("in range!...");
-
-                        var side = factories[i].overMat(mouseX, mouseY);
-                        console.log("Factory Side: " + side + "...");
-
-                        switch (side) {
-                            case 1:
-                                factories[i].setMat1(tracking);
-                                break;
-                            
-                            case 2:
-                                factories[i].setMat2(tracking);
-                                break;
-                            default:
-                                break;
-                        }
-
-                        tracking = null;
-                        break;
-                    }
-                    else
-                        console.log("Not in range...");
-                }
-
-                for(var i = 0; i < collectors.length; i++){
-                    console.log("Checking collectors...");
-                    if (collectors[i].over(mouseX, mouseY))
-                    {
-                        console.log("in range!...");
-                        collectors[i].setMat(tracking);
-                        tracking = null;
-                        break;
-                    }
-                    else
-                        console.log("Not in range...");
-                }
-
                 break;
 
             default:
@@ -241,77 +206,50 @@ function mouseReleased()
     }
     else
     {
+        /*
+        array order
+            0-extractors
+            1-factories
+            2-collectors
+        */
+
+        console.log(components);
+
         //check port clicks
-        for(var i = 0; i < extractors.length; i++)
-        {
-            var overPort = extractors[i].overPort(mouseX, mouseY);
-            if (overPort != 0)
-            {
-                bufferPort = extractors[i].getPort(overPort);
-                if (bufferPort.output == true)
-                    startPort = bufferPort;
-                return;
-            }
-        }
 
-        for(var i = 0; i < factories.length; i++)
+        for(let x = 0; x < components.length; x++)
         {
-            var overPort = factories[i].overPort(mouseX, mouseY);
-            if (overPort != 0)
+            arr = components[x]; //current array in rotation
+            for(let i = 0; i < arr.length; i++)
             {
-                bufferPort = factories[i].getPort(overPort);
-                if (bufferPort.output == true)
-                    startPort = bufferPort;
-                return;
-            }
-        }
-
-        for(var i = 0; i < collectors.length; i++)
-        {
-            var overPort = collectors[i].overPort(mouseX, mouseY);
-            if (overPort != 0)
-            {
-                bufferPort = collectors[i].getPort(overPort);
-                if (bufferPort.output == true)
-                    startPort = bufferPort;
-                return;
+                var overPort = arr[i].overPort(mouseX, mouseY);
+                if (overPort != 0)
+                {
+                    bufferPort = arr[i].getPort(overPort);
+                    if (bufferPort.output == true)
+                        startPort = bufferPort;
+                    return;
+                }
             }
         }
 
         //check if over components
-        for(var i = 0; i < extractors.length; i++)
-        {
-            if(extractors[i].over(mouseX, mouseY))
-            {
-                tracking = extractors[i];
-                extractors.splice(i, 1);
-                disconnectConnecter(tracking);
-                resetComponentRates();
-                return;
-            }
-        }
 
-        for(var i = 0; i < factories.length; i++)
+        for(let x = 0; x < components.length; x++)
         {
-            if(factories[i].over(mouseX, mouseY))
+            arr = components[x]; //current array in rotation
+            for(let i = 0; i < arr.length; i++)
             {
-                tracking = factories[i];
-                factories.splice(i, 1);
-                disconnectConnecter(tracking);
-                resetComponentRates();
-                return;
-            }
-        }
+                console.log(arr[i]);
 
-        for(var i = 0; i < collectors.length; i++)
-        {
-            if(collectors[i].over(mouseX, mouseY))
-            {
-                tracking = collectors[i];
-                collectors.splice(i, 1);
-                disconnectConnecter(tracking);
-                resetComponentRates();
-                return;
+                if(arr[i].over(mouseX, mouseY))
+                {
+                    tracking = arr[i];
+                    arr.splice(i, 1);
+                    disconnectConnecter(tracking);
+                    resetComponentRates();
+                    return;
+                }
             }
         }
 
